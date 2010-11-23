@@ -1,0 +1,27 @@
+#board {
+  overflow: hidden;
+  position: relative;
+  width: 450px;
+  height: 450px;
+  background: silver;
+}
+#board div[role=tile], #board div[role=piece], #board div[role=goal] {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+}
+#board div[role=goal] {
+  background: black;
+}
+#board div[role=tile] {
+  background: white;
+}
+#board div[role=piece] {
+  -webkit-border-radius: 15px;
+  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, .5);
+  -webkit-transform: scale(.8);
+}
+#board div[data-color=r] { background-color: red; }
+#board div[data-color=g] { background-color: green; }
+#board div[data-color=y] { background-color: yellow; }
+#board div[data-color=b] { background-color: blue; }
