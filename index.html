@@ -33,7 +33,8 @@
             sprint: "",
             color: "",
             direction: "",
-            restriction: ""
+            restriction: "",
+            role: "tile"
         },
         i;
         for (i=0;i<2;i++) {
@@ -48,6 +49,9 @@
             if (directions[c]) {
                 posObj.direction += c;
             }
+            if (c==="!") {
+                posObj.role = "goal";
+            }
         }
         if (posObj.color && posObj.sprint) {
             posObj.restriction = posObj.color;
@@ -57,10 +61,8 @@
 
     function makeLine (line, y) {
         var x, myArray = [];
-        //var startPos = 1;
         for (x=0; x < line.length/3; x++) {
             var pos = line.substr(x*3,(x+1)*3);
-            //line = line.substr(3, line.length-1);
             myArray.push(makeTile(pos, x, y));
         }
         return myArray;
@@ -87,7 +89,6 @@
     }
 
         function tile2html (tile) {
-            
             return (tile.direction) ? "<div " +
             " data-color='"+tile.color+
             "' data-restriction='"+tile.restriction+
