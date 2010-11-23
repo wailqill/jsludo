@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="style.css" type="text/css">
   </head>
   <body>
+    <button id="dice">Roll</button>
     <div id="board">
       <div role="goal" data-x="3" data-y="6"></div>
     </div>
@@ -88,16 +89,17 @@
         return html;
     }
 
-        function tile2html (tile) {
-            return (tile.direction) ? "<div " +
-            " data-color='"+tile.color+
-            "' data-restriction='"+tile.restriction+
-            "' data-direction='" +tile.direction+
-            "' data-x='" +tile.x+
-            "' data-y='" +tile.y+
-            "'></div>" : "";
-        }
-
+    function tile2html (tile) {
+        return (tile.direction) ? "<div " +
+        " data-color='"+tile.color+
+        "' data-restriction='"+tile.restriction+
+        "' data-direction='" +tile.direction+
+        "' role='" + tile.role + 
+        "' data-x='" +tile.x+
+        "' data-y='" +tile.y+
+        "'></div>" : "";
+    }
+    
     var boardObject = makeBoard (board);
     var html = board2html(boardObject);
     document.getElementById("board").innerHTML = html;
