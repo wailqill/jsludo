@@ -1,10 +1,7 @@
 (function(doc) {
+
   function makeTile(tileStr, x, y) {
       var sprints = {
-          "⇡": true,
-          "⇠": true,
-          "⇢": true,
-          "⇣": true
       },
       colors = {
           "r": true,
@@ -13,10 +10,10 @@
           "y": true
       },
       directions = {
-          "→": true,
-          "↑": true,
-          "←": true,
-          "↓": true
+          ">": true,
+          "^": true,
+          "<": true,
+          "v": true
       },
       posObj = {
           x: x,
@@ -25,7 +22,8 @@
           sprint: "",
           color: "",
           direction: "",
-          restriction: ""
+          restriction: "",
+          role: "tile"
       },
       i;
       for (i=0;i<2;i++) {
@@ -40,6 +38,9 @@
           if (directions[c]) {
               posObj.direction += c;
           }
+          if (c==="!") {
+              posObj.role = "goal";
+          }
       }
       if (posObj.color && posObj.sprint) {
           posObj.restriction = posObj.color;
@@ -49,10 +50,8 @@
 
   function makeLine (line, y) {
       var x, myArray = [];
-      //var startPos = 1;
       for (x=0; x < line.length/3; x++) {
           var pos = line.substr(x*3,(x+1)*3);
-          //line = line.substr(3, line.length-1);
           myArray.push(makeTile(pos, x, y));
       }
       return myArray;
@@ -79,17 +78,22 @@
   }
 
   function tile2html (tile) {
-    
-      return (tile.direction) ? "<div" +
+      return (tile.direction) ? "<div " +
       " data-color='"+tile.color+
-      " data-restriction="+tile.restriction+
+      "' data-restriction='"+tile.restriction+
       "' data-direction='" +tile.direction+
+      "' role='" + tile.role + 
       "' data-x='" +tile.x+
       "' data-y='" +tile.y+
       "'></div>" : "";
   }
-
-  var boardObject = makeBoard (board);
+  
+  var boardObject = makeBoard(layout);
   var html = board2html(boardObject);
-  doc.getElementById("board").innerHTML = html;
+  var div = doc.createElement('div');
+  div.innerHTML = html;
+  var board = doc.getElementById("board");
+  for (var i=div.childNodes.length-1; i>=0; i--)
+    board.appendChild(div.childNodes[i]);
+
 })(document);

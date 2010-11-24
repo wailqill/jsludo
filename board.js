@@ -1,4 +1,4 @@
-var board = [
+var layout = [
 "                  >  v> v                   ", 
 "                  ^  vy vy                  ", 
 "                  ^  vy v                   ", 
