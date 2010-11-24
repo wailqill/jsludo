@@ -1,37 +1,33 @@
 (function(doc) {
 
   function makeTile(tileStr, x, y) {
-      var sprints = {
-      },
-      colors = {
+      var colors = {
           "r": true,
           "g": true,
           "b": true,
           "y": true
-      },
-      directions = {
-          ">": true,
-          "^": true,
-          "<": true,
-          "v": true
-      },
-      posObj = {
-          x: x,
-          y: y,
-          str: tileStr,
-          sprint: "",
-          color: "",
-          direction: "",
-          restriction: "",
-          role: "tile"
-      },
-      i;
-      for (i=0;i<2;i++) {
+        },
+        directions = {
+            ">": true,
+            "^": true,
+            "<": true,
+            "v": true
+        },
+        posObj = {
+            x: x,
+            y: y,
+            str: tileStr,
+            sprint: "",
+            color: "",
+            direction: "",
+            restriction: "",
+            role: "tile",
+            start: false
+        },
+        i;
+
+      for (i=0;i<3;i++) {
           var c = tileStr[i];
-          if (sprints[c]) {
-              posObj.direction += c;
-              posObj.sprint = c;
-          }
           if (colors[c]) {
               posObj.color = c;
           }
@@ -41,9 +37,12 @@
           if (c==="!") {
               posObj.role = "goal";
           }
-      }
-      if (posObj.color && posObj.sprint) {
-          posObj.restriction = posObj.color;
+          if (c==="R") {
+              posObj.restriction = true;
+          }
+          if (c==="S") {
+              posObj.start = true;
+          }
       }
       return posObj;
   }
@@ -80,8 +79,9 @@
   function tile2html (tile) {
       return (tile.direction) ? "<div " +
       " data-color='"+tile.color+
-      "' data-restriction='"+tile.restriction+
+      (tile.restriction ? "' data-restriction='" +tile.color : '') +
       "' data-direction='" +tile.direction+
+      (tile.start ? "' data-start='" +tile.color : '') +
       "' role='" + tile.role + 
       "' data-x='" +tile.x+
       "' data-y='" +tile.y+

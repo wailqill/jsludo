@@ -17,6 +17,7 @@
   background: white;
 }
 #board div[role=piece] {
+  z-index: 1;
   -webkit-border-radius: 15px;
   -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, .5);
   -webkit-transform: scale(.8);
