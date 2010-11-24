@@ -31,7 +31,7 @@
   function movePieceFromTile(piece, x, y) {
     var tile = getItem('tile', x, y);
     var nx, ny;
-    var rules = tile ? (tile.getAttribute("data-ruleset") || "").split('') : [];
+    var rules = tile ? (tile.getAttribute("data-direction") || "").split('') : [];
     if (!tile || rules.length === 0) {
       // Piece at home base.
       var color = piece.getAttribute('data-color');
