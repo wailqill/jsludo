@@ -2,7 +2,7 @@
   var MOVE_DELAY = 20
     , FACTOR = 31
     , isTouch = 'ontouchstart' in window
-    , PieceState =  {
+    , PieceMovability =  {
         TRUE: 1,
         FALSE: 2,
         GOAL: 3
@@ -21,8 +21,9 @@
   
   function diceHandler() {
     if (movesLeft > 0) return;
-    movesLeft = 60;
+    movesLeft = 2;
     dice.innerText = movesLeft;
+    dice.setAttribute('data-rolled', movesLeft);
   };
   
   function pieceSelectHandler(e) {
@@ -38,16 +39,15 @@
     if (elm.getAttribute("role") === "piece") {
       var x = elm.getAttribute("data-x");
       var y = elm.getAttribute("data-y");
+      elm.setAttribute("data-start-x", x);
+      elm.setAttribute("data-start-y", y);
       movePieceFromTile(elm, x, y);
     }
-    currentPlayer++;
-    if (currentPlayer >= playerCount)
-      currentPlayer = 0;
   };
   
   function movePieceFromTile(piece, x, y) {
     var tile = getItem('tile', x, y);
-    var nx, ny;
+    var nx, ny, state;
     var rules = tile ? (tile.getAttribute("data-direction") || "").split('') : [];
     if (!tile || rules.length === 0) {
       // Piece at home base.
@@ -63,12 +63,12 @@
           case "<": nx=+x-1; ny=+y;   break;
           case "v": nx=+x;   ny=+y+1; break;
         }
-        var state = isTileValidForPiece(piece, nx, ny);
-        if (state === PieceState.FALSE) {
+        state = isTileValidForPiece(piece, nx, ny);
+        if (state === PieceMovability.FALSE) {
           continue;
-        } else if (state === PieceState.TRUE) {
+        } else if (state === PieceMovability.TRUE) {
           break;
-        } else if (state === PieceState.GOAL) {
+        } else if (state === PieceMovability.GOAL) {
           piece.parentNode.removeChild(piece);
           alert("IN!")
           break;
@@ -87,21 +87,56 @@
           movePieceFromTile(piece, nx, ny);
         }, MOVE_DELAY);
       } else {
-        dice.innerText = "Roll";
+        if (state === PieceMovability.FALSE) {
+          alert("Invalid move!");
+          revertMove(piece);
+        } else {
+          dice.innerText = "Roll";
+          nextPlayer();
+        }
+        piece.removeAttribute("data-start-x");        
+        piece.removeAttribute("data-start-y");
       }
     }
+  };
+  
+  function nextPlayer() {
+    currentPlayer++;
+    if (currentPlayer >= playerCount)
+      currentPlayer = 0;
+  };
+  
+  function revertMove(piece) {
+    var x = piece.getAttribute("data-start-x");
+    var y = piece.getAttribute("data-start-y");
+    piece.setAttribute('data-x', x);
+    piece.setAttribute('data-y', y);
+    movesLeft = dice.innerText = parseInt(dice.getAttribute('data-rolled'));
+    positionPieces();
   };
   
   function isTileValidForPiece(piece, x, y) {
     var color = piece.getAttribute('data-color');
     var tile = getItem('tile', x, y);
+
+    // Check if piece already at tile
+    if (document.querySelectorAll("#board div[role='piece'][data-x='" + x + "'][data-y='" + y + "']").length > 0)
+      return PieceMovability.FALSE;
+      
+    // Check if piece reached goal
     if (document.querySelector("#board div[role='goal'][data-x='" + x + "'][data-y='" + y + "']"))
-      return PieceState.GOAL;
-    if (!!document.querySelector("#board div[role='tile'][data-restriction=''][data-x='" + x + "'][data-y='" + y + "']")
+      return PieceMovability.GOAL;
+
+    // Check if piece may move to tile
+    if (!!document.querySelector("#board div[role='tile'][data-x='" + x + "'][data-y='" + y + "']:not([data-restriction])")
+        ||
+        !!document.querySelector("#board div[role='tile'][data-restriction=''][data-x='" + x + "'][data-y='" + y + "']")
         ||
         !!document.querySelector("#board div[role='tile'][data-restriction='" + color +"'][data-x='" + x + "'][data-y='" + y + "']"))
-      return PieceState.TRUE;
-    return PieceState.FALSE;
+      return PieceMovability.TRUE;
+      
+    // Else default to FALSE.
+    return PieceMovability.FALSE;
   };
   
   function getItem(role, x, y) {
