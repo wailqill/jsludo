@@ -1,5 +1,5 @@
 (function(win, undefined) {
-  var MOVE_DELAY = 200
+  var MOVE_DELAY = 20
     , FACTOR = 31
     , isTouch = 'ontouchstart' in window
     , PieceState =  {
@@ -52,10 +52,13 @@
         }
         var state = isTileValidForPiece(piece, nx, ny);
         if (state === PieceState.FALSE) {
+          continue;
+        } else if (state === PieceState.TRUE) {
           break;
         } else if (state === PieceState.GOAL) {
           piece.parentNode.removeChild(piece);
           alert("IN!")
+          break;
         }
       }
     }
