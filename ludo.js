@@ -21,7 +21,7 @@
   
   function diceHandler() {
     if (movesLeft > 0) return;
-    movesLeft = Math.ceil(Math.random() * 6);
+    movesLeft = 62//Math.ceil(Math.random() * 6);
     dice.innerText = movesLeft;
     dice.setAttribute('data-rolled', movesLeft);
   };
@@ -49,9 +49,9 @@
     var tile = getItem('tile', x, y);
     var nx, ny, state;
     var rules = tile ? (tile.getAttribute("data-direction") || "").split('') : [];
+    var color = piece.getAttribute('data-color');
     if (!tile || rules.length === 0) {
       // Piece at home base.
-      var color = piece.getAttribute('data-color');
       var start = document.querySelector("#board div[role='tile'][data-start='" + color + "']");
       nx = start.getAttribute('data-x');
       ny = start.getAttribute('data-y');
@@ -70,7 +70,11 @@
           break;
         } else if (state === PieceMovability.GOAL) {
           piece.parentNode.removeChild(piece);
-          alert("IN!")
+          if (!document.querySelector("#board div[role='piece'][data-color='" + color + "']")) {
+            document.getElementById('soundWinning').play();
+          } else {
+            document.getElementById('soundIn').play();
+          }
           break;
         }
       }
