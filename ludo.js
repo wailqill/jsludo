@@ -193,6 +193,9 @@
     currentPlayer = 0;
     createPieces();
     positionPieces();
+    
+    document.getElementById('soundWinning').load();
+    document.getElementById('soundIn').load();
   };
   
   init();
