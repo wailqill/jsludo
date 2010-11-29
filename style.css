@@ -28,3 +28,12 @@
 #board div[data-color=g] { background-color: green; }
 #board div[data-color=y] { background-color: yellow; }
 #board div[data-color=b] { background-color: blue; }
+
+#dice {
+  width: 200px;
+  height: 200px;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 40px;
+}
