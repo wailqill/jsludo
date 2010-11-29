@@ -12,6 +12,7 @@
     , allColors = 'gybr'.split('')
     , movesLeft = 0
     , board = document.getElementById("board")
+    , dice = document.getElementById("dice")
     ;
 
   function l() {
@@ -20,7 +21,7 @@
   
   function diceHandler() {
     movesLeft = 60;
-    l(movesLeft);
+    dice.innerText = movesLeft;
   };
   
   function pieceSelectHandler(e) {
@@ -78,10 +79,13 @@
       piece.style.top = (FACTOR * ny) + "px";
       piece.setAttribute("data-x", nx);
       piece.setAttribute("data-y", ny);
+      dice.innerText = movesLeft;
       if (movesLeft !== 0) {
         setTimeout(function() {
           movePieceFromTile(piece, nx, ny);
         }, MOVE_DELAY);
+      } else {
+        dice.innerText = "Roll";
       }
     }
   };
