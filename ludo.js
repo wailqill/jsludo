@@ -24,13 +24,14 @@
   };
   
   function pieceSelectHandler(e) {
+    if (movesLeft === 0) return;
+    
     var elm = e.target;
     if (allColors[currentPlayer] !== elm.getAttribute('data-color')) {
       alert('Cheater!');
       return;
     }
     
-    if (movesLeft === 0) return;
     if (elm.getAttribute("role") === "piece") {
       var x = elm.getAttribute("data-x");
       var y = elm.getAttribute("data-y");
