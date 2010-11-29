@@ -10,9 +10,6 @@
   width: 30px;
   height: 30px;
 }
-#board div[role=home] {
-  margin: 15px 0 0 15px;
-}
 #board div[role=goal] {
   background: black;
 }
