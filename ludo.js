@@ -20,6 +20,7 @@
   }
   
   function diceHandler() {
+    if (movesLeft > 0) return;
     movesLeft = 60;
     dice.innerText = movesLeft;
   };
