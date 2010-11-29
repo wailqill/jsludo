@@ -7,6 +7,8 @@
         FALSE: 2,
         GOAL: 3
       }
+    , playerCount
+    , currentPlayer
     ;
   
   var board = document.getElementById("board");
@@ -112,12 +114,33 @@
     }
   }
   
+  function createPieces() {
+    var colors = 'gybr'.split('').slice(0, playerCount);
+    //for (var i=0, color; color = colors[i]; i++) {
+    colors.forEach(function(color) {
+      var homes = document.querySelectorAll("div[role='home'][data-color='" + color + "']");
+      debugger
+      Array.prototype.forEach.call(homes, function(home) {
+        var piece = document.createElement('div');
+        piece.setAttribute('role', 'piece');
+        piece.setAttribute('data-x', home.getAttribute('data-x'));
+        piece.setAttribute('data-y', home.getAttribute('data-y'));
+        piece.setAttribute('data-color', home.getAttribute('data-color'));
+        board.appendChild(piece);
+      });
+    });
+  };
+  
   function init() {
     var eventName = isTouch ? 'touchstart' : 'click';
     board.addEventListener(eventName, pieceSelectHandler, true);
     document.getElementById('dice').addEventListener(eventName, diceHandler, true);
     
     positionTiles();
+    playerCount = parseInt(prompt("Player count")) || 0;
+    if (playerCount < 1 || playerCount > 4) { return; }
+    currentPlayer = 0;
+    createPieces();
     positionPieces();
   };
   
