@@ -21,7 +21,7 @@
   
   function diceHandler() {
     if (movesLeft > 0) return;
-    movesLeft = 2;
+    movesLeft = Math.ceil(Math.random() * 6);
     dice.innerText = movesLeft;
     dice.setAttribute('data-rolled', movesLeft);
   };
