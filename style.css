@@ -1,9 +1,11 @@
 #board {
   overflow: hidden;
   position: relative;
-  width: 460px;
-  height: 460px;
+  width: 464px;
+  height: 464px;
   background: silver;
+  border: 8px solid #888;
+  -webkit-border-radius: 8px;
   -webkit-user-select: none;
 }
 #board div[role=tile], #board div[role=piece], #board div[role=goal], #board div[role=home] {
@@ -12,7 +14,12 @@
   height: 30px;
 }
 #board div[role=goal] {
-  background: black;
+  width: 0;
+  height: 0;
+  border-bottom: 15px solid red;
+  border-left: 15px solid green;
+  border-right: 15px solid blue;
+  border-top: 15px solid yellow;
 }
 #board div[role=tile] {
   background: white;
