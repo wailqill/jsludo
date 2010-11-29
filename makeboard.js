@@ -43,6 +43,10 @@
           if (c==="S") {
               posObj.start = true;
           }
+          if (c==="H") {
+              posObj.home = true;
+              posObj.role = 'home';
+          }
       }
       return posObj;
   }
@@ -77,7 +81,7 @@
   }
 
   function tile2html (tile) {
-      return (tile.direction) ? "<div " +
+      return (tile.direction || tile.home) ? "<div " +
       " data-color='"+tile.color+
       (tile.restriction ? "' data-restriction='" +tile.color : '') +
       "' data-direction='" +tile.direction+

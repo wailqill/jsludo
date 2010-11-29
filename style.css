@@ -5,10 +5,13 @@
   height: 460px;
   background: silver;
 }
-#board div[role=tile], #board div[role=piece], #board div[role=goal] {
+#board div[role=tile], #board div[role=piece], #board div[role=goal], #board div[role=home] {
   position: absolute;
   width: 30px;
   height: 30px;
+}
+#board div[role=home] {
+  margin: 15px 0 0 15px;
 }
 #board div[role=goal] {
   background: black;

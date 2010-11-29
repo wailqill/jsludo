@@ -93,7 +93,7 @@
   };
   
   function positionTiles() {
-    tiles = document.querySelectorAll("#board div[role='tile'], #board div[role='goal']");
+    tiles = document.querySelectorAll("#board div[role='tile'], #board div[role='goal'], #board div[role='home']");
     for (var i=0, tile; tile = tiles[i]; i++) {
       var x = tile.getAttribute("data-x");
       var y = tile.getAttribute("data-y");
