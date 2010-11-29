@@ -7,13 +7,12 @@
         FALSE: 2,
         GOAL: 3
       }
-    , playerCount
-    , currentPlayer
+    , tiles, pieces
+    , playerCount, currentPlayer
+    , allColors = 'gybr'.split('')
+    , movesLeft = 0
+    , board = document.getElementById("board")
     ;
-  
-  var board = document.getElementById("board");
-  var tiles, pieces;
-  var movesLeft = 0;
 
   function l() {
     console.log.apply(console, arguments);
@@ -25,13 +24,21 @@
   };
   
   function pieceSelectHandler(e) {
-    if (movesLeft === 0) return;
     var elm = e.target;
+    if (allColors[currentPlayer] !== elm.getAttribute('data-color')) {
+      alert('Cheater!');
+      return;
+    }
+    
+    if (movesLeft === 0) return;
     if (elm.getAttribute("role") === "piece") {
       var x = elm.getAttribute("data-x");
       var y = elm.getAttribute("data-y");
       movePieceFromTile(elm, x, y);
     }
+    currentPlayer++;
+    if (currentPlayer >= playerCount)
+      currentPlayer = 0;
   };
   
   function movePieceFromTile(piece, x, y) {
@@ -116,7 +123,6 @@
   
   function createPieces() {
     var colors = 'gybr'.split('').slice(0, playerCount);
-    //for (var i=0, color; color = colors[i]; i++) {
     colors.forEach(function(color) {
       var homes = document.querySelectorAll("div[role='home'][data-color='" + color + "']");
       debugger
