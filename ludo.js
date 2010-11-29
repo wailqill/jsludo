@@ -29,6 +29,7 @@
     if (movesLeft === 0) return;
     
     var elm = e.target;
+    if (elm.getAttribute('role') !== 'piece') return;
     if (allColors[currentPlayer] !== elm.getAttribute('data-color')) {
       alert('Cheater!');
       return;
