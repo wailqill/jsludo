@@ -1,10 +1,14 @@
 (function(win, undefined) {
-  var FACTOR = 31;
-  var PieceState =  {
-    TRUE: 1,
-    FALSE: 2,
-    GOAL: 3
-  }
+  var MOVE_DELAY = 200
+    , FACTOR = 31
+    , isTouch = 'ontouchstart' in window
+    , PieceState =  {
+        TRUE: 1,
+        FALSE: 2,
+        GOAL: 3
+      }
+    ;
+  
   var board = document.getElementById("board");
   var tiles, pieces;
   var movesLeft = 0;
@@ -14,7 +18,7 @@
   }
   
   function diceHandler() {
-    movesLeft = 4;
+    movesLeft = 60;
     l(movesLeft);
   };
   
@@ -64,7 +68,7 @@
       if (movesLeft !== 0) {
         setTimeout(function() {
           movePieceFromTile(piece, nx, ny);
-        }, 500);
+        }, MOVE_DELAY);
       }
     }
   };
@@ -106,8 +110,9 @@
   }
   
   function init() {
-    board.addEventListener('click', pieceSelectHandler, true);
-    document.getElementById('dice').addEventListener('click', diceHandler, true);
+    var eventName = isTouch ? 'touchstart' : 'click';
+    board.addEventListener(eventName, pieceSelectHandler, true);
+    document.getElementById('dice').addEventListener(eventName, diceHandler, true);
     
     positionTiles();
     positionPieces();

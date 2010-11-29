@@ -5,7 +5,7 @@ var layout = [
 "                  ^  vyRv                    ", 
 "                  ^  vyRv                    ", 
 "                  ^  vyRv                    ", 
-">  >gS>  >  >  >  >  vyR>  >  >  >  >  >  v  ", 
+">  >gS>  >  >  >  ^  vyR>  >  >  >  >  >  v  ", 
 ">^ >gR>gR>gR>gR>gR>gR!  <bR<bR<bR<bR<bR<bR<v ", 
 "^  <  <  <  <  <  <  ^rRv  <  <  <  <  <b <  ", 
 "                  ^  ^rRv                    ", 
