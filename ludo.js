@@ -166,7 +166,6 @@
     var colors = 'gybr'.split('').slice(0, playerCount);
     colors.forEach(function(color) {
       var homes = document.querySelectorAll("div[role='home'][data-color='" + color + "']");
-      debugger
       Array.prototype.forEach.call(homes, function(home) {
         var piece = document.createElement('div');
         piece.setAttribute('role', 'piece');

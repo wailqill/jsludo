@@ -4,6 +4,7 @@
   width: 460px;
   height: 460px;
   background: silver;
+  -webkit-user-select: none;
 }
 #board div[role=tile], #board div[role=piece], #board div[role=goal], #board div[role=home] {
   position: absolute;
@@ -36,4 +37,5 @@
   top: 20px;
   right: 20px;
   font-size: 40px;
+  -webkit-user-select: none;
 }
