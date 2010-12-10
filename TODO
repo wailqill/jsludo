@@ -1,0 +1,13 @@
+Required
+========
+
+* Better UI for asking about player count.
+* Keyboard navigation for die roll.
+* Better integration of die in UI. Maybe one for each player in his/her home base?
+* Some indication of which players' turn it is.
+
+Maybe?
+======
+
+* Keyboard navigation for selecting piece.
+* Ability to play over web sockets.
