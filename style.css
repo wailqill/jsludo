@@ -24,6 +24,9 @@
 #board div[role=tile] {
   background: white;
 }
+#board div[role=home] {
+  -webkit-border-radius: 7px;
+}
 #board div[role=piece] {
   z-index: 1;
   -webkit-border-radius: 15px;
